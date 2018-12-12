@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class Deck {
 
-    ArrayList<Card> unDealt;
-    ArrayList<Card> Dealt;
+    ArrayList<Card> unDealt = new ArrayList<>();
+    ArrayList<Card> Dealt = new ArrayList<>();
 
     public Deck (String[] ranks, String[] suits, int[] pointValues)
     {
         for (int i = 0; i < ranks.length; i++)
         {
-            for (int j = 0; j < suits.length; i++)
+            for (int j = 0; j < suits.length; j++)
             {
                 Card newCard = new Card(ranks[i], suits[j], pointValues[i]);
                 unDealt.add(newCard);
@@ -51,7 +51,8 @@ public class Deck {
 
     public void shuffle()
     {
-        unDealt.add(Dealt.remove(0));
+        if (Dealt.size() > 0)
+            unDealt.add(Dealt.remove(0));
 
         for (int k = 51; k >= 1; k--)
         {
@@ -65,23 +66,23 @@ public class Deck {
 
     public String toString()
     {
-        String str = "Dealt cards: [";
-
-        for (int i = 0; i < Dealt.size(); i++)
-        {
-            str += Dealt.get(i);
-        }
-
-        str = str.substring(0, str.length() - 2);
-        str += "]\nUndealt card: ";
+        String str = "Undealt cards: [";
 
         for (int i = 0; i < unDealt.size(); i++)
         {
-            str += unDealt.get(i);
+            str += unDealt.get(i) + ", ";
         }
 
         str = str.substring(0, str.length() - 2);
-        str += "]";
+        str += "]\nDealt cards: [";
+
+        for (int i = 0; i < Dealt.size(); i++)
+        {
+            str += Dealt.get(i) + ", ";
+        }
+
+        str = str.substring(0, str.length() - 2);
+        str += "]\n";
 
         return str;
     }
